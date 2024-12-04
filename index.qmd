@@ -15,5 +15,9 @@ install.packages("usethis")
 ```
 
 ```{r}
-usethis::git_sitrep()
+usethis::use_git()
+```
+
+```{r}
+usethis::use_github()
 ```
