@@ -7,9 +7,17 @@ install.packages("usethis")
 ```
 
 ```{r}
+library("usethis")
+```
+
+```{r}
 usethis::use_git()
 ```
 
 ```{r}
 usethis::use_github()
+```
+
+```{r}
+file.edit("~/.Rprofile")
 ```
