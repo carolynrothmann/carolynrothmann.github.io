@@ -1,0 +1,103 @@
+---
+title: "Water Quality Along Three sites at the Poudre River"
+---
+about: This is data from my Watershed measurements class For this assignment we analyzed data from 2023 and looked at the patterns of water quality parameters. The graphs below display the monthly, hourly and yearly patternsat three sites along the Poudre river: Legacy Park, Lincoln Ave, Timberline rd.The parameters measured are depth, Conductivity, dissolved oxygen, average temperature,and pH. 
+---
+
+```{r}
+source('setup.R')
+```
+
+```{r}
+data <- read.csv("data/concise_df_wide.csv")
+data$DT_round_mst <- ymd_hms(data$DT_round_mst)
+hourly_data <- data %>%
+ mutate(hour = floor_date(DT_round_mst, "hour")) %>%
+ group_by(site, hour) %>%
+ summarise(across(where(is.numeric), mean, na.rm = TRUE), .groups = "drop") 
+```
+
+```{r}
+daily_data <- data %>%
+ mutate(date = as_date(DT_round_mst)) %>%
+ group_by(site, date) %>%
+ summarise(across(where(is.numeric), mean, na.rm = TRUE),.groups = "drop")
+```
+
+```{r}
+hourly_data_long <- hourly_data %>%
+  pivot_longer(
+    cols = c(Depth_ft, DO_mg.L, pH, Specific_Conductivity_uS.cm, Temperature_C),
+    names_to = "Parameter",
+    values_to = "Value"
+  )
+
+```
+
+```{r}
+hourly_data_long <- hourly_data_long %>%
+ mutate(date = as.Date(hour, format = "%Y-%m-%d %H:%M:%S"))
+sept_hour_data <- hourly_data_long %>%
+ filter(date == as.Date("2023-09-19"))
+ggplot(data = sept_hour_data) +
+ geom_line(mapping = aes(x = hour, y = Value, color = Parameter)) +
+ facet_grid(Parameter ~ site, scales = "free_y") +
+ labs(
+ x = "Hour",
+ y = "WQ Parameter",
+ title = "Trends Over Time by Hour (September 19th, 2023)"
+ ) +
+ theme_minimal() +
+ theme(
+ plot.title = element_text(hjust = 0.5, size = 16),
+ axis.title.x = element_text(size = 12),
+ axis.title.y = element_text(size = 12),
+ axis.text.x = element_text(angle = 45, hjust = 1), 
+ legend.position = "right"
+ )
+
+```
+
+```{r}
+daily_long <- daily_data %>%
+ pivot_longer(cols = c(Depth_ft, DO_mg.L, pH, Specific_Conductivity_uS.cm, Temperature_C),
+ names_to = "Parameter",
+values_to = "Value")
+```
+
+```{r}
+sept_daily <- daily_long %>%
+ filter(format(date, "%Y-%m") == "2023-09")
+```
+
+```{r}
+ggplot(data = sept_daily) +
+ geom_line(mapping = aes(x = date, y = Value, color = Parameter)) +
+facet_grid( Parameter ~ site, scales = "free_y") +
+ labs(
+ x = "Date",
+ y = "Value",
+ title = "Trends Over Time by Date (september 2023)"
+ ) +
+ theme_minimal() +
+ theme(
+ plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),
+ axis.title.x = element_text(size = 12),
+ axis.title.y = element_text(size = 12),
+ axis.text.x = element_text(angle = 45, hjust = 1),
+ legend.position = "top")
+```
+
+```{r}
+ggplot(data = daily_long) +
+ geom_line(mapping = aes(x = date, y = Value, color = Parameter)) +
+facet_grid( Parameter ~ site, scales = "free_y") +
+labs(x = "Date", y = "Value", title = "Trends Over Time by Date") +
+theme_minimal() +
+ theme(
+plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),
+axis.title.x = element_text(size = 12),
+axis.title.y = element_text(size = 12),
+axis.text.x = element_text(angle = 45, hjust = 1), legend.position = "top"
+ )
+```

@@ -1,23 +1,19 @@
 ---
-title: "carolynrothmann.github.io"
+title: "Carolyn Rothmann"
+image: githubpic.png
+about: 
+  template: trestles
+  image-shape: rounded
+  image-width: 15em
+  links:
+    - text: LinkedIn
+      href: https://www.linkedin.com/in/carolyn-rothmann-6385621a4/
+    - text: GitHub
+      href: https://github.com/carolynrothmann
+    - text: Email
+      href: carolyn.rothmann@colostate.edu 
 ---
 
-```{r}
-install.packages("usethis")
-```
+Hey yall! My name is Carolyn and I am a masters student a Colorado State University studying Water Resources. This website is my portfolio with some of projects from the Fall 2024 semester. Cheers! 
 
-```{r}
-library("usethis")
-```
-
-```{r}
-usethis::use_git()
-```
-
-```{r}
-usethis::use_github()
-```
-
-```{r}
-file.edit("~/.Rprofile")
-```
+---

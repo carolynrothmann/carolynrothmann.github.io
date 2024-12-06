@@ -8,8 +8,11 @@ website:
     left:
       - href: index.qmd
         text: Home
-      - about.qmd
-
+      - href: WQ.qmd
+        text: Water Quality
+    
+      
+  
 format:
   html:
     theme: cosmo
