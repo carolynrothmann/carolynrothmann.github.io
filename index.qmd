@@ -3,21 +3,14 @@ title: "carolynrothmann.github.io"
 ---
 
 ```{r}
-install.packages("usethis")
+#install.packages("usethis")1
+
 ```
 
 ```{r}
-library("usethis")
+#usethis::use_git()
 ```
 
 ```{r}
-usethis::use_git()
-```
-
-```{r}
-usethis::use_github()
-```
-
-```{r}
-file.edit("~/.Rprofile")
+#usethis::use_github()
 ```

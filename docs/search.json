@@ -1,0 +1,16 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "carolynrothmann.github.io",
+    "section": "",
+    "text": "#install.packages(\"usethis\")1\n\n\n#usethis::use_git()\n\n\n#usethis::use_github()"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site\n\n1 + 1\n\n[1] 2"
+  }
+]
