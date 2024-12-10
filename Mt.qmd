@@ -11,18 +11,22 @@ How surface water interacts with groundwater at CSU Mountain Campus.
 ---
 
 ```{r}
+source("setup.R")
+```
+
+```{r}
 water_table <- read.csv("data/daily.csv")
 ```
+
+# Water Table Elevation 
 
 ```{r}
 water_elevation <- water_table %>%
   mutate(date = ymd(date))
 ```
 
-# Water Table Elevation 
-
 ```{r}
-water_elevation %>%
+ water_elevation %>%
   ggplot(aes(x = date, y = h_m, color = site)) +
   geom_line(linewidth = .5) +  
   theme_minimal() +
