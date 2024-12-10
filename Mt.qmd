@@ -1,0 +1,55 @@
+---
+title: "The Relationship Between Surface Water and Groundwater"
+image: Mt.png
+about: 
+  template: trestles
+  image-shape: rounded
+  image-width: 15em
+---
+
+How surface water interacts with groundwater at CSU Mountain Campus.  
+---
+
+```{r}
+water_table <- read.csv("data/daily.csv")
+```
+
+```{r}
+water_elevation <- water_table %>%
+  mutate(date = ymd(date))
+```
+
+# Water Table Elevation 
+
+```{r}
+water_elevation %>%
+  ggplot(aes(x = date, y = h_m, color = site)) +
+  geom_line(linewidth = .5) +  
+  theme_minimal() +
+  labs(title = "Water Table Elevation Over Time",
+       x = "Date",
+       y = "Elevation (m)")
+```
+
+This time series graph showing changes in water table elevation at the Colorado State University Mountain Campus from 2019 - 2024. The periodic spikes seen here shows the seasonal variation likely due to rain or snow melt.
+
+```{r}
+rating_data <- read.csv("data/discharege_rating.csv")
+```
+
+# Relationship between water stage and discharge.
+
+```{r}
+rating_data %>%
+  ggplot(aes(x = Stage_CM, y = Q_CM, color = site)) +
+  geom_point() +
+  labs(
+    title = "Long Term Rating Curve for Sites 1 and 2",
+    x = "Stage (cm)",
+    y = "Discharge (cm)"
+  ) +
+  theme_minimal()
+
+```
+
+This rating curve represents the relationship between the stage and discharge between upstream and downstream sites from 2019 - 2024. As the stage increases so does the rate of discharge in Little South Fork Stream.
